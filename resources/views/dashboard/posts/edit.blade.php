@@ -5,18 +5,15 @@
             @method('PATCH')
             <x-post-form :post="$post" />
         </form>
-
-        <button type="submit" form="postForm" class="bg-gray-300 rounded py-2 px-4" type="submit">Guardar cambios</button>
+        <div class="flex space-x-5">
+            <button type="submit" form="postForm" class="bg-gray-300 rounded py-2 px-4" type="submit">Guardar cambios</button>
+            <form action="{{ route('posts.destroy', $post) }}" method="post">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="bg-red-500 text-white rounded py-2 px-4" onclick="return confirm('Se eliminará esta publicación permanentemente ¿deseas continuar?')">
+                    Eliminar publicación
+                </button>
+            </form>
+        </div>
     </div>
-
-    <x-slot name="scripts">
-        <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
-        <script>
-            ClassicEditor.create(document.querySelector( '#editor' ))
-                .catch( error => {
-                    console.error( error );
-                });
-        </script>   
-    </x-slot>
-
 </x-app-layout>
